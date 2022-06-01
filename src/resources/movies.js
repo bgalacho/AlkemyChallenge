@@ -1,8 +1,9 @@
 import { Movie } from '../db.js'
 
 export async function getMovies(req, res){
-    const movies = await Movie.findAll();
-    res.send(movies)
+    // const movies = await Movie.findAll();
+    // res.send(movies)
+    res.send("ol de mubis")
 }
 
 export async function createMovies (req, res){
