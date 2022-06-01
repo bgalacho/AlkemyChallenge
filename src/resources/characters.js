@@ -14,9 +14,14 @@ export async function createCharacter (req, res){
     res.status(200).send(newCharacter)
 }
 
+
 export async function getAllCharacter (req, res){
     
-    res.send("all")
+    const allCharacters = await Character.findAll({
+        attributes: ['name', 'image']
+      })     
+    
+    res.status(200).send(allCharacters);
 }
 
 export async function editCharacter (req, res){
