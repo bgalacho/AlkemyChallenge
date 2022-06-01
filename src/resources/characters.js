@@ -1,10 +1,21 @@
 import { Character } from '../db.js'
 
 export async function createCharacter (req, res){
-    res.send("created")
+    const {image, name, age, weight, history} = req.body;
+
+    const newCharacter = await Character.create({
+        image:image, 
+        name: name, 
+        age: age,
+        weight: weight, 
+        history: history,
+    })
+
+    res.status(200).send(newCharacter)
 }
 
 export async function getAllCharacter (req, res){
+    
     res.send("all")
 }
 
