@@ -12,10 +12,10 @@ routes.put('/movies', authentication, movies.editMovies)
 routes.delete('/movies', authentication, movies.deleteMovies)
 
 routes.get('/characters', authentication, characters.getAllCharacter)
-routes.get('/character/:id', authentication, characters.getCharacterById)
+routes.get('/characters/:id', authentication, characters.getCharacterById)
 routes.post('/characters', authentication, characters.createCharacter)
-routes.put('/characters', authentication, characters.editCharacter)
-routes.delete('/characters', authentication, characters.deleteCharacter)
+routes.put('/characters/:id', authentication, characters.editCharacter)
+routes.delete('/characters/:id', authentication, characters.deleteCharacter)
 
 routes.get('/auth/login', login.loginAuthUser)
 routes.post('/auth/register', login.registerUser)

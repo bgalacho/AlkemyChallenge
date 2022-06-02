@@ -25,13 +25,41 @@ export async function getAllCharacter (req, res){
 }
 
 export async function editCharacter (req, res){
-    res.send("edit")
+    const {image, name, age, weight, history} = req.body;
+    const characterId = req.params.id;
+
+        if (name && image && age && weight && history) {
+      
+            const characterEdit = await Character.findByPk(characterId);
+
+            if (!characterEdit) res.status(404).send();          
+            else{
+                characterEdit.name = name;
+                characterEdit.image = image;
+                characterEdit.age = age;
+                characterEdit.weight = weight;
+                characterEdit.history = history;
+      
+            await characterEdit.save();
+    }
+    
+     res.status(200).send(characterEdit)
+    }
+
+    
 }
 
+
 export async function deleteCharacter (req, res){
-    res.send("delete")
+    const characterId = req.params.id;
+
+    await Character.destroy({where:{id:characterId}})
+    res.status(200).send()
 }
 
 export async function getCharacterById (req, res){
-    res.send("CaracterById")
+    const characterId = req.params.id;
+
+    const getCharacter = await Character.findOne({where:{id:characterId}})
+    res.status(200).send(getCharacter)
 }
