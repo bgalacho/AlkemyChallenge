@@ -20,7 +20,11 @@ export async function createMovies (req, res){
 }
 
 export async function deleteMovies (req, res){
-    res.send("movies")
+    const movieId = req.params.id;
+
+    await Movie.destroy({ where: { id: movieId } })
+    res.status(200).send()
+   
 }
 
 export async function editMovies (req, res){
