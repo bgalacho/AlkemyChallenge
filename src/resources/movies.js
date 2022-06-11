@@ -7,7 +7,16 @@ export async function getMovies(req, res){
 }
 
 export async function createMovies (req, res){
-    res.send("movies")
+    const { title, image, rating } = req.body;
+
+    const newMovie = await Movie.create({        
+        title: title,
+        image:image, 
+        rating: rating
+    })
+
+    res.status(200).send(newMovie)
+  
 }
 
 export async function deleteMovies (req, res){
