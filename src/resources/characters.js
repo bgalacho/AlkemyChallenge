@@ -28,38 +28,27 @@ export async function createCharacter(req, res) {
 
 export async function getAllCharacter(req, res) {
   const { name, age, weight, movies } = req.query;
-  const idCharacter = req.params.id;
 
-  if (name){
-    const characterName = await Character.findAll({
-      where: {
-        name: { [Op.iLike]: `%${name}%` }, // no distingue entre mayúsculasy minúsculas
-      },
-    }); 
-    res.send(characterName)
-  } 
-  if(age){
-    const characterAge = await Character.findOne({where: {age: age}})
-    res.send(characterAge)
-  }
-  if (weight){
-    const characterWeight = await Character.findOne({where: {weight: weight}})
-    res.send(characterWeight)
-  }
-  if(movies){
-    const characterMovies = await Character.findOne({
-      where: { id: idCharacter },
+  if ( name || age || weight || movies){
+    const characterWhere = {}
+
+    if (name) characterWhere.name = { [Op.iLike]: `%${name}%` }
+    if (age) characterWhere.age = age
+    if (weight) characterWhere.weight = weight
+    if (movies) characterWhere["Movie.id"] = movies
+
+    const foundCharacters = await Character.findAll({
+      where: characterWhere,
       include: Movie
     });
-    res.send(characterMovies)
-  }else {
 
-  const allCharacters = await Character.findAll({
-    attributes: ['name', 'image']
-  })
-
-  res.status(200).send(allCharacters);
-}
+    res.send(foundCharacters)
+  }else{
+    const allCharacters = await Character.findAll({
+      attributes: ['name', 'image']
+    })
+    res.send(allCharacters)
+  }
 }
 
 export async function editCharacter(req, res) {

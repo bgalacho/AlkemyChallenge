@@ -8,7 +8,7 @@ const routes = Router()
 
 routes.get('/movies', authentication, movies.getMovies)
 routes.post('/movies', authentication, movies.createMovies)
-routes.put('/movies/:id', authentication, movies.editMovies)
+// routes.put('/movies/:id', authentication, movies.editMovies)
 routes.delete('/movies/:id', authentication, movies.deleteMovies)
 
 routes.get('/characters', authentication, characters.getAllCharacter)
